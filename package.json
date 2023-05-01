@@ -1,0 +1,16 @@
+{
+  "name": "playright-web-boilerplate",
+  "version": "1.0.0",
+  "description": "This sample is designed for use in VsCode and includes source code for testing the web frontend using Playwright. It also uses the Allure reporter to report results",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test --headed",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.32.3"
+  }
+}
