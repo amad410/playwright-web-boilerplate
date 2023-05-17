@@ -1,17 +1,17 @@
 const { test, expect, request } = require('@playwright/test');
-const logindata = require('./data/login.json');
-const orderdata = require("./data/order.json");
-const {APIUtils} = require('./helpers/APIUtils')
+const logindata = require('../data/login.json');
+const orderdata = require("../data/order.json");
+const {APIUtils} = require('../helpers/APIUtils')
 
 let response;
 
-test.beforeAll(async()=>{
+test.beforeAll(async({baseURL})=>{
     const apiContext = await request.newContext();
-    const apiUtils = new APIUtils(apiContext, logindata);
+    const apiUtils = new APIUtils(apiContext, logindata, baseURL);
     response = await apiUtils.createOrder(orderdata);
 });
 
-test('Example API test call from test claass', async () => {
+test.only('Example API test call from test claass', async () => {
 
     const apiContext = await request.newContext();
     const loginReponse = await apiContext.post("/api/ecom/auth/login",

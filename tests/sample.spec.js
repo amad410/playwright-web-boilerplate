@@ -1,7 +1,9 @@
 const { test, expect } = require('@playwright/test');
-const {ScreenUtils} = require('./helpers/ScreenUtils');
+const {ScreenUtils} = require('../helpers/ScreenUtils');
 //const { LoginView } = require('./views/LoginView');
-const {ViewManager} = require('./views/ViewManager');
+const {ViewManager} = require('../views/ViewManager');
+const logindata = JSON.parse(JSON.stringify(require('../data/login.json')));
+const invalidlogindata = JSON.parse(JSON.stringify(require('../data/invalid-login.json')));
 let screenUtils;
 
 test.beforeAll( async () =>{
@@ -24,17 +26,30 @@ test('Sample Test', async ({page}) => {
   });
 
 
-  test.only('Sample POM Test', async ({page}) => {
+  test('Sample POM Test with Valid Login', async ({page}) => {
  
     const viewManager = new ViewManager(page);
-
-    await viewManager.getLoginView().login('amad410@gmail.com', 'Amad7511');
     const loginView = viewManager.getLoginView();
-    //const loginView = new LoginView(page);
-    await loginView.login('amad410@gmail.com', 'Amad7511');
-
+    await loginView.login(logindata.userEmail, logindata.userPassword);
     screenUtils = new ScreenUtils(page);
     screenUtils.getScreenShot();
     await page.screenshot({path: './screenshots/screenshot.png'})
 
   });
+
+  for(const data of invalidlogindata)
+  {
+    test(`Sample POM Test with Invalid Login user ${data.userEmail}`, async ({page}) => {
+ 
+      const viewManager = new ViewManager(page);
+      const loginView = viewManager.getLoginView();
+      await loginView.login(data.userEmail, data.userPassword);
+  
+      screenUtils = new ScreenUtils(page);
+      screenUtils.getScreenShot();
+      await page.screenshot({path: './screenshots/screenshot.png'})
+  
+    });
+  }
+
+  

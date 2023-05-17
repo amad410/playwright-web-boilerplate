@@ -2,6 +2,21 @@
 const { defineConfig, devices } = require('@playwright/test');
 
 
+let bsUrl = ""
+
+if(process.env.ENVIRONMENT == 'DEV')
+{
+  bsUrl = 'https://rahulshettyacademy.com'
+}
+else if(process.env.ENVIRONMENT == 'QA'){
+  bsUrl = 'https://rahulshettyacademy.com'
+}
+else if(process.env.ENVIRONMENT == 'STAGING'){
+  bsUrl = 'https://rahulshettyacademy.com'
+}
+
+console.log("environment is " + bsUrl);
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -28,12 +43,14 @@ module.exports = defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-     baseURL: 'https://rahulshettyacademy.com',
+     //baseURL: 'https://rahulshettyacademy.com',
+     baseURL: bsUrl,
      baseAPIURL: '',
      //browserName : 'chromium',
      /* Collect screenshots */
@@ -47,7 +64,10 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], 
+      //headless: false
+     },
+
     },
 
     {

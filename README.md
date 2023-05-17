@@ -124,14 +124,104 @@ This will look at the script section in the package.json and debug your script
 
 Similarly, you can use the Javascript debugger in the terminal.
 
+## Run specific suite interactively
+See documentation [here](https://webdriver.io/docs/organizingsuites/) or [here](https://playwright.dev/docs/api/class-suite)
 
-## Running tests in parallel
-See more information [here](https://playwright.dev/docs/test-parallel)
+_npx playwright test --suite <suiteName>_
+
+## Run tests using a specific configuration
+See documentation [here](https://webdriver.io/docs/organizingsuites/)
+_npx playwright test --config <configuration file>_
+
+## Run tests using a specific environment
+See documentation when it comes to parameterized tests [here](https://playwright.dev/docs/test-parameterize)
+
+This framework is already wired to running tests across environments in the _playwright.config.js_. You can make updates to the specific environment urls there. If you want to run tests against a specific environment, first set the corresponding environment (i.e., DEV, QA, STAGING). After, you can run the test
+_$env:ENVIRONMENT='QA'_
+_npx playwright test_
+
+## Run tests using a specific browser (Cross Browser Testing)
+By default, the _playwright.config.js_ file is wired to support running against chrome, firefox, and webkit through the projects node. If a project is not specified, it will run all projects or aka. all browsers in the project node.  If you want to run chrome project, for example:
+_npx playwright test --project=<project name>_  
+
+For example: _npx playwright test --project=chrome_  
+
+Likewise, for firefox: _npx playwright test --project=firefox_  
+
+## Serial and Parallelization
+### Running Test files in parallel
+By default test files are triggeed in parallel, but individual tests present in a file will run sequentially. By just running all tests, it will assign a worker for each spec test file in the targeted test directory.
+
+So by default, playwright does support running tests in parallel. However, the number of workers can be controlled throught _workers_ flag in the _playwright.config.js_ file.  If this flag's value is set to '1,' you are disabling parallelization.  Ff nothing is set, by default it will the spec test files in parallel and for each test in that file in sequence. 
+
+See more information on expanding your ability to run tests in parallel [here](https://playwright.dev/docs/test-parallel)
+
+### Running Test in same file in parallel
+You can simply apply configuration to the test.describe.  As seen below, this will run 3 workers in a parallel for the 3 tests in a given file.
+```
+test.describe.configure({mode: 'parallel'});
+test("Test 1", async({page})=>
+{
+
+})
+
+test("Test 2", async({page})=>
+{
+
+})
+
+test("Test 3", async({page})=>
+{
+
+})
+
+```
+See more information on expanding your ability to run tests in parallel [here](https://playwright.dev/docs/test-parallel)
+
+### Running Test in same file in serial mode
+By specifying to run tests in serial mode, you can control what tests run based on order of precedence. As outlined below, if a test fails, it will skip the next test after it. However, this is not normally recommended. Each test should be interdependent from another.  There might be edge cases though.
+
+```
+test.describe.configure({mode: 'serial'});
+test("Test 1", async({page})=>
+{
+
+})
+
+test("Test 2", async({page})=>
+{
+
+})
+
+test("Test 3", async({page})=>
+{
+
+})
+
+```
+
+## Tagging Tests (Running suites or test categories based on tags)
+You can specify tags within the test title name using the '@' as seen below:
+```
+test("@smoke Test 1", async({page})=>
+{
+
+})
+```
+Then to run tests with that specific tag, for example you can perform from command line:
+_npx playwright test --grep @smoke_
 
 ## Show last HTML report
 _npx playwright show-report_
 
-## Getting Test Traces
+
+## Reducing flakiness on browser runs
+It is recommended to run in headless mode, buy setting headless to true in the different project nodes in _playwright.config.js_
+
+## Additional Reporters
+See additional reporters [here](https://playwright.dev/docs/test-reporters)
+
+## Getting Test Traces (Logs)
 
 By default, it is turned on. However, you can turn it off by removing or setting the trace configuration value in your config to _off_.
 ```
@@ -175,10 +265,6 @@ use: {
 ```
 More information can be found [here](https://testersdock.com/playwright-screenshot-capture/)
 
-## Run specific suite interactively
-See documentation [here](https://webdriver.io/docs/organizingsuites/)
-_npx playwright --suite <suiteName>_
-
 ## Code Development
 ### Codegen Tool
 _npx playwright codegen <application url>_
@@ -186,90 +272,29 @@ More information [here](https://playwright.dev/docs/codegen)
 
 ### Development Documentation
  - General Test Development: [here](https://playwright.dev/docs/writing-tests)
- - API: [here](https://playwright.dev/docs/test-api-testing)
+ - API Testing: [here](https://playwright.dev/docs/test-api-testing)
  - Mock APIs: [here](https://playwright.dev/docs/mock)
  - Mock Browser APIs: [here](https://playwright.dev/docs/mock-browser-apis)
-- Intercepting Network Calls: [here](https://playwright.dev/docs/network)
+ - Intercepting Network Calls: [here](https://playwright.dev/docs/network)
+ - Adding fixtures - [here](https://playwright.dev/docs/test-fixtures#:~:text=Playwright%20Test%20is%20based%20on,instead%20of%20their%20common%20setup.)
+ - Parameterize tests - [here](https://playwright.dev/docs/test-parameterize)
+ - Best Practices - [here](https://playwright.dev/docs/best-practices)
+ - Test Configurations - [here](https://playwright.dev/docs/test-configuration) and [here](https://playwright.dev/docs/api/class-testconfig)
+ - Page locator - [here](https://playwright.dev/docs/pages)
+ - General locators - [here](https://playwright.dev/docs/locators)
+ - Assertions - [here](https://playwright.dev/docs/test-assertions#list-of-assertions)
+ - ViewPort Emulation - [here](https://playwright.dev/python/docs/emulation)
+ - Retries - [here](https://playwright.dev/docs/test-retries)
+ - Autowaiting - [here](https://playwright.dev/docs/actionability)
+ - Screen shots - [here](https://playwright.dev/docs/screenshots)
+ - Video - [here](https://playwright.dev/docs/videos)
 
- ### TypeScript
+ ### TypeScript Integration
  - TypeScript: [here](https://playwright.dev/docs/test-typescript)
 
-
-## Assertions
-The list of assertions are [here](https://playwright.dev/docs/test-assertions#list-of-assertions)
-
-## Visual Testing
+## Integrating Visual Testing
 Implement Visual Testing [here](https://playwright.dev/docs/test-snapshots)
-
-## Locators
-1. Page locator - [here](https://playwright.dev/docs/pages)
-2. General locators - [here](https://playwright.dev/docs/locators)
-
-## Wait Strategies
- 1. Waits - [here](https://webdriver.io/docs/autowait/)
- 2. WaitForClickable - [here](https://webdriver.io/docs/api/element/waitForClickable/)
- 3. WaitForDisplayed - [here](https://webdriver.io/docs/api/element/waitForDisplayed)
- 4. WaitForEnabled - [here](https://webdriver.io/docs/api/element/waitForEnabled)
- 5. WaitForExist - [here](https://webdriver.io/docs/api/element/waitForExist)
- 6. WaitUntil - [here](https://webdriver.io/docs/api/element/waitUntil)
-
-## Run tests using CLI using a different environment
-Cross ENV is the package library that is being used to run test across multiple environments [here](https://www.npmjs.com/package/cross-env). By default the following JSON environment configurations are included:
-1. LOCAL
-2. DEV
-3. QA
-4. STAGE
-
-You can point to a specific baseUrl based on the configurations you pass above. For example, the following will run agains the QA environment specified in the wdio.conf.ts file:
-_npx cross-env ENV=QA npm run test_
-
-NOTE: By default, the tests will run in headless mode.  If you want to run interactively, comment out chromeoptions section in config file as outlined [here](https://webdriver.io/docs/configurationfile/)
-
-## Run tests using CLI for a specific browser
-Consult the Services section [here](https://webdriver.io/docs/gettingstarted)
- | [Standalone service](https://webdriver.io/docs/selenium-standalone-service)
-
-By default, this framework is wired to support the following browser tests:
- - Chrome
- - Firefox
- - Edge
-
- NOTE: By default, the tests will run in headless mode.  If you want to run interactively on chrome for example, comment out chromeoptions section in config file as outlined [here](https://webdriver.io/docs/configurationfile/).
-
- To run tests against a specific browser:
-
- _npx cross-env ENV=QA npm run test:firefox_
- _npx cross-env ENV=QA npm run test:edge_
- _npx cross-env ENV=QA npm run test:allbrowsers_
-
-## Running Suites
-You can run suites of tests. Consult documentation [here](https://webdriver.io/docs/organizingsuites/)
-
-# Configurations
-See documentation [here](https://webdriver.io/docs/watcher/#:~:text=With%20the%20WDIO%20testrunner%20you,it%20ran%20all%20tests%2C%20e.g.)
-
-# Reports
-The most popular types are:
-1. [Spec](https://webdriver.io/docs/spec-reporter/)
-2. [Allure](https://webdriver.io/docs/allure-reporter)
-3. [Mochawesome](https://webdriver.io/docs/wdio-mochawesome-reporter)
-
-## Generate Report
-By default, this framework is set to use _spec_ and _allure_. To generate the allure report:
-
-_npm run report_
-
-# Additional References
- 1. Official documentation [here](https://webdriver.io/docs)
- 2. Chai Assertions - [here](https://webdriver.io/docs/assertion/)
- 3. XPath plugin - [here](https://v6.webdriver.io/docs/selectors.html)
- 4. WebDriverIO + Jenkins CI Integration - [here](https://webdriver.io/docs/jenkins/)
- 5. WebDriverIO + Azure CI Integration - [here](https://webdriver.io/docs/gmangiapelo-wdio-azure-devops-service/)
- 5. WebDriverIO + GitLab CI Integration - [here](https://docs.gitlab.com/ee/ci/examples/end_to_end_testing_webdriverio/) and [here](https://medium.com/dolap-tech/how-to-run-selenium-automation-tests-on-gitlab-ci-cd-github-actions-bd743142ad4c)
 
 # Contribute
 If you would like to contribute to the source, please reach out to Director of Quality Engineering, Antwan Maddox,
 or the Automation Team within the Quality Guild.
-
-## Reporting bugs in WebDriverIO
-Alternatively, you can report bugs that you encounter in WebDriverIO [here](https://github.com/webdriverio/webdriverio/issues)
