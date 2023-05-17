@@ -78,7 +78,7 @@ _npx playwright test --config <configuration file>_
 ## Run tests using a specific environment
 See documentation when it comes to parameterized tests [here](https://playwright.dev/docs/test-parameterize)
 
-This framework is already wired to running tests across environments in the _playwright.config.js_. You can make updates to the specific environment urls there. If you want to run tests against a specific environment, first set the corresponding environment (i.e., DEV, QA, STAGING). After, you can run the test
+This framework is already wired to running tests across environments in the _playwright.config.js_. You can make updates to the specific environment urls there. If you want to run tests against a specific environment, first set the corresponding environment (i.e., LOCAL, DEV, QA, STAGING). After, you can run the test
 _$env:ENVIRONMENT='QA'_
 _npx playwright test_
 
