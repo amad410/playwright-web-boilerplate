@@ -11,7 +11,7 @@ test.beforeAll(async({baseURL})=>{
     response = await apiUtils.createOrder(orderdata);
 });
 
-test.only('Example API test call from test claass', async () => {
+test('Example API test call from test claass', async () => {
 
     const apiContext = await request.newContext();
     const loginReponse = await apiContext.post("/api/ecom/auth/login",

@@ -14,6 +14,9 @@ else if(process.env.ENVIRONMENT == 'QA'){
 else if(process.env.ENVIRONMENT == 'STAGING'){
   bsUrl = 'https://rahulshettyacademy.com'
 }
+else if(process.env.ENVIRONMENT == 'LOCAL'){
+  bsUrl = 'https://rahulshettyacademy.com'
+}
 
 console.log("environment is " + bsUrl);
 

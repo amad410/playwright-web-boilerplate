@@ -38,9 +38,20 @@ Then run _npm install_ to install new versions from your package.json.
 # Build and Test
 1. From command line navigate to source project folder and perform.  The different ways to run tests can be found [here](https://playwright.dev/docs/running-tests).
 
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
+
+## Trigger tests and generate results from package.json
+By default, this framework is wired with a script in the package.json to trigger tests. Simply perform the following:
+_npm test_
+_npm report_
+
+You can add additional custom scripts in the package.json
+
 ## Run specific spec noninteractively
 By default, tests will run in headless mode, unless you run the following command 
 _npx playwright test_
+
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
 
 ## Run all tests interactively
 By default, tests will run in headless mode, unless you run the following command 
@@ -50,13 +61,19 @@ Or using the commands from package.json
 
 _npm run test_
 
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
+
 ## Run specific spec 
 _npx playwright test tests/sample.spec.js_
+
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
 
 ## Run UI tests in debug mode
 _npx playwright test --debug_ which will launch the Playwright Inspector for Debugging. 
 More information [here](https://playwright.dev/docs/debug)
 NOTE: You cannot debug API calls using Inspector.
+
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
 
 ## Run API tests in debug mode
 Perform the following:
@@ -66,14 +83,22 @@ This will look at the script section in the package.json and debug your script
 
 Similarly, you can use the Javascript debugger in the terminal.
 
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
+
 ## Run specific suite interactively
 See documentation [here](https://webdriver.io/docs/organizingsuites/) or [here](https://playwright.dev/docs/api/class-suite)
 
 _npx playwright test --suite <suiteName>_
 
+You can add additional custom scripts in the package.json
+
+NOTE: See section titled 'Run tests using a specific environment,' as you will need to set the environment first before a run
+
 ## Run tests using a specific configuration
 See documentation [here](https://webdriver.io/docs/organizingsuites/)
 _npx playwright test --config <configuration file>_
+
+You can add additional custom scripts in the package.json
 
 ## Run tests using a specific environment
 See documentation when it comes to parameterized tests [here](https://playwright.dev/docs/test-parameterize)
@@ -82,6 +107,8 @@ This framework is already wired to running tests across environments in the _pla
 _$env:ENVIRONMENT='QA'_
 _npx playwright test_
 
+You can add additional custom scripts in the package.json
+
 ## Run tests using a specific browser (Cross Browser Testing)
 By default, the _playwright.config.js_ file is wired to support running against chrome, firefox, and webkit through the projects node. If a project is not specified, it will run all projects or aka. all browsers in the project node.  If you want to run chrome project, for example:
 _npx playwright test --project=<project name>_  
@@ -89,6 +116,8 @@ _npx playwright test --project=<project name>_
 For example: _npx playwright test --project=chrome_  
 
 Likewise, for firefox: _npx playwright test --project=firefox_  
+
+You can add additional custom scripts in the package.json
 
 ## Serial and Parallelization
 ### Running Test files in parallel
@@ -153,12 +182,26 @@ test("@smoke Test 1", async({page})=>
 Then to run tests with that specific tag, for example you can perform from command line:
 _npx playwright test --grep @smoke_
 
-## Show last HTML report
+## Show default last HTML Report
+Perform the following to open the report in a browser.
 _npx playwright show-report_
 
+NOTE: You can find the report in the index.hmtl by default under _playwright-report_
 
-## Reducing flakiness on browser runs
-It is recommended to run in headless mode, buy setting headless to true in the different project nodes in _playwright.config.js_
+## Show Allure HTML Report for run
+Precondition: 
+1. Install allure playwright _npm  i -D @playwright/test allure-playwright_
+2. Install allure commandline tools _npm i -D allure-commandline_
+To do this, perform the following:
+1. run the test _npx playwright test --reporter=allure-playwright_ or _npx playwright test --reporter=line,allure-playwright_
+2. generate the report _npx allure generate ./allure-results --clean_ 
+3. then open the report _npx allure open ./allure-report_
+
+Screenshots will be shown for a failed test, based on configuration in framework from _playwright.config.js_
+
+## Show Line Report for run
+To generate report in plain text, perform the following:
+_npx playwright test --reporter=line_
 
 ## Additional Reporters
 See additional reporters [here](https://playwright.dev/docs/test-reporters)
@@ -206,6 +249,12 @@ use: {
 
 ```
 More information can be found [here](https://testersdock.com/playwright-screenshot-capture/)
+
+## Reducing flakiness on browser runs
+It is recommended to run in headless mode, buy setting headless to true in the different project nodes in _playwright.config.js_
+
+## Updating Playwright
+_npx playwright install_
 
 ## Code Development
 ### Codegen Tool
