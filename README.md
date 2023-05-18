@@ -256,6 +256,9 @@ It is recommended to run in headless mode, buy setting headless to true in the d
 ## Updating Playwright
 _npx playwright install_
 
+## Integration with CI/CD
+Playwright can be integrated with common CI/CD tools. See information [here](https://playwright.dev/docs/ci)
+
 ## Code Development
 ### Codegen Tool
 _npx playwright codegen <application url>_
