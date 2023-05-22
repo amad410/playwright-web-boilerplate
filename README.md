@@ -1,5 +1,5 @@
 # Introduction 
-This sample is designed for use in VsCode and includes source code for testing the web frontend using Cucumber for Playwright. Cucumber is nothing more than another interface that sits on top of your scripts that documents tests in plain language using Gherkin syntax. It also uses the Allure reporter to report results.
+This sample is designed for use in VsCode and includes source code for testing the web frontend. It also uses the Allure reporter to report results.
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
