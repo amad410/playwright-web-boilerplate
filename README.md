@@ -1,11 +1,13 @@
 # Introduction 
-This sample is designed for use in VsCode and includes source code for testing the web frontend using Playwright. It also uses the Allure reporter to report results 
+This sample is designed for use in VsCode and includes source code for testing the web frontend using Cucumber for Playwright. Cucumber is nothing more than another interface that sits on top of your scripts that documents tests in plain language using Gherkin syntax. It also uses the Allure reporter to report results.
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
 1. Install node
 2. Install npm
 3. Install VsCode
+4. Install plugin 'Cucumber (Gherkin) Full Support' from within VSCode.
+5. Restart System
 
 ### Documentation
 If you want to learn more refer the following:
@@ -15,14 +17,16 @@ If you want to learn more refer the following:
 On the commandline at the base of the project, perform 
 _npm install_
 
-# Verify Installation
-From command line navigate to source project folder and perform
-Run _npm run wdio_
 NOTE: Make sure your browser is up-to-date.
 
 # Check version of Playwright
-To check your version of Cypress you can perform the following:
+To check your version of Playwright you can perform the following:
 _npx playwright --version_ 
+
+# Updating Node version
+You can do this through NVM (node version manager) [here](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/) and then just perform _nvm install <version>_
+
+or download and install latest from [here](https://nodejs.org/en)
 
 # Updating All Packages
 Install the package update checker using this documentation [here](https://www.npmjs.com/package/npm-check-updates)
@@ -282,6 +286,8 @@ More information [here](https://playwright.dev/docs/codegen)
  - Autowaiting - [here](https://playwright.dev/docs/actionability)
  - Screen shots - [here](https://playwright.dev/docs/screenshots)
  - Video - [here](https://playwright.dev/docs/videos)
+ - Cucumber - [here](https://cucumber.io/docs/installation/javascript/)
+ - Cucumber GitHub - [here](https://github.com/cucumber/cucumber-js)
 
  ### TypeScript Integration
  - TypeScript: [here](https://playwright.dev/docs/test-typescript)
