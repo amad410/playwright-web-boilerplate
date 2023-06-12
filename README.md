@@ -295,6 +295,4 @@ More information [here](https://playwright.dev/docs/codegen)
 ## Integrating Visual Testing
 Implement Visual Testing [here](https://playwright.dev/docs/test-snapshots)
 
-# Contribute
-If you would like to contribute to the source, please reach out to Director of Quality Engineering, Antwan Maddox,
-or the Automation Team within the Quality Guild.
+
